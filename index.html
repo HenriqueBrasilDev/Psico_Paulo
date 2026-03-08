@@ -12,13 +12,22 @@
     <header class="header">
         <div class="header-container">
             <div class="logo-small"><a href="http://psicopaulo.com"><img src="assets/logo.png" alt="" title="Inicio"></a></div>
-            <nav class="nav">
+            
+            <button class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <nav class="nav" id="nav-menu">
                 <a href="#inicio">Início</a>
                 <a href="#sobre">Sobre</a>
                 <a href="#metodos">Métodos</a>
                 <a href="#depoimentos">Depoimentos</a>
+                <a href="https://calendly.com/psicopauloh" class="btn-primary" style="color: white;" id="btn-agendar-mobile" target="_blank">Agendar Consulta</a>
             </nav>
-            <a href="https://calendly.com/psicopauloh" class="btn-primary" target="_blank">Agendar Consulta</a>
+            
+            <a href="https://calendly.com/psicopauloh" class="btn-primary"  id="btn-agendar-header" target="_blank">Agendar Consulta</a>
         </div>
     </header>
 
@@ -32,7 +41,7 @@
                         <li>Avaliação psicologica & Aplicação de testes</li>
                     </ul>
                     <blockquote class="quote">
-                        “A subjetividade é uma dadiva e um veneno, a autonomia é a seringa do veneno.” 
+                        “A subjetividade é uma dadiva e um veneno, e a autonomia é a seringa do veneno.” 
                     </blockquote>
                     <div class="credentials">
                         <p>Abordagem: Terapia Cognitivo</p>
@@ -49,7 +58,7 @@
                 <div class="hero-right">
                     <div class="bg-blurred-logo">Logo Blur</div>
                     <div class="badge-container">
-                        <div class="badge">Mais de 10 <br>Pós Graduações<br>em andamento</div>
+                        <div class="badge">Mais de 10 <br>Pós Graduações</div>
                         <div class="badge">Mais de 30 cursos finalizados</div>
                         <div class="badge-certificados" id="btn-certificados">Mais de 40 Certificados</div>
                     </div>
@@ -137,10 +146,11 @@
                 <div class="method-row">
                     <div class="method-img"><img src="./assets/imagens_passos/2.png" alt=""></div>
                     <div class="method-text card-white">
-                        <p style="font-size: 30px; padding-bottom: 10px;">Minerar Situação<br>Lapidar a mesma</p>
-                        <ul>
+                        <ul style="list-style: none;">
+                            <p>Minerar Situação</p>
+                            <p>Lapidar a mesma</p>
                             <li>Aquisição de Informações</li>
-                            <li>Diálogo</li>
+                            <li>Diálogo</li> 
                             <li>Intervenção</li>
                             <li>Nortear</li>
                         </ul>
@@ -1043,6 +1053,42 @@
                 e.target.classList.remove('show');
             }
         });
+
+        // 1. MENU FLUTUANTE QUE FICA FIXO AO ROLAR + RESET DO HAMBÚRGUER
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+                // Se a pessoa voltar para o topo, fecha o menu automaticamente
+                if (hamburger) hamburger.classList.remove('active');
+                if (navMenu) navMenu.classList.remove('active');
+            }
+        });
+
+        // 1.5 LÓGICA DE CLIQUE DO MENU HAMBÚRGUER (MOBILE)
+        const hamburgerBtn = document.getElementById('hamburger');
+        const navMenuBox = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('.nav a');
+
+        if (hamburgerBtn && navMenuBox) {
+            hamburgerBtn.addEventListener('click', () => {
+                hamburgerBtn.classList.toggle('active');
+                navMenuBox.classList.toggle('active');
+            });
+
+            // Fecha o menu suspenso se a pessoa clicar em um link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerBtn.classList.remove('active');
+                    navMenuBox.classList.remove('active');
+                });
+            });
+        }
     </script>
 </body>
 </html>

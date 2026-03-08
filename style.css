@@ -111,7 +111,7 @@ ul { list-style: none; }
 .header {
     background: var(--color-white);
     padding: 15px 30px;
-    position: fixed; 
+    position: fixed;
     top: 75px;
     left: 50%;
     transform: translateX(-50%); 
@@ -144,6 +144,37 @@ ul { list-style: none; }
 }
 .nav a:hover { color: var(--color-primary); }
 
+/* ==========================================================================
+   MENU HAMBÚRGUER (GERAL - OCULTO NO DESKTOP)
+   ========================================================================== */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    gap: 5px;
+    flex-direction: column;
+    z-index: 1001;
+}
+
+.hamburger .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-primary);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Animação do "X" quando o menu está aberto */
+.hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.active .bar:nth-child(2) { opacity: 0; }
+.hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Esconde o botão do menu mobile no desktop */
+#btn-agendar-mobile {
+    display: none;
+}
 /* ==========================================================================
    SEÇÃO HERO (INÍCIO)
    ========================================================================== */
@@ -790,12 +821,17 @@ ul { list-style: none; }
     } 
 }
 
+/* ==========================================================================
+   COMPORTAMENTO DO CELULAR (MAX-WIDTH: 768PX) - BLOCO ÚNICO
+   ========================================================================== */
+/* ==========================================================================
+   COMPORTAMENTO DO CELULAR (MAX-WIDTH: 768PX) - TRANSIÇÃO CORRIGIDA
+   ========================================================================== */
 @media (max-width: 768px) {
-    .header { padding: 15px; width: calc(100% - 20px); border-radius: 20px; }
-    .header-container { flex-direction: column; gap: 15px; }
-    .nav { flex-wrap: wrap; justify-content: center; gap: 10px; }
-    
-    .hero { padding-top: 200px; } 
+    /* --- ELEMENTOS GERAIS DO SITE NO CELULAR --- */
+    .container { padding: 30px 20px; }
+
+    .hero { padding-top: 200px; }
     .hero-left h1 { font-size: 2.5rem; }
     .main-photo { border-radius: 100px; }
     
@@ -809,10 +845,155 @@ ul { list-style: none; }
     .slider-btn { display: none; } 
     .footer-bottom { flex-direction: column; text-align: center; gap: 15px; border-radius: 20px; padding: 20px; }
 
-    /* NOVO AJUSTE CELULAR: Ocupa a largura total disponível */
-    .testimonial-card { 
+    .testimonial-card {
         width: auto;
         min-width: calc(100vw - 60px); 
         max-width: calc(100vw - 60px);
     } 
+
+    /* --- 1. ESTADO NORMAL DO CABEÇALHO (NO TOPO) --- */
+    .header {
+        padding: 15px 20px; 
+        width: calc(100% - 20px); 
+        border-radius: 20px; 
+        top: 20px;
+        transition: all 0.4s ease;
+    }
+
+    /* O truque do flex-wrap evita o pulo no layout */
+    .header-container {
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo-small { order: 1; }
+
+    .hamburger {
+        order: 2;
+        display: flex;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(10px); /* Começa levemente para o lado */
+        transition: all 0.4s ease;
+    }
+
+    /* Menu e botão ocupam 100% da largura na parte de baixo */
+    /* Menu ocupa 100% da largura na parte de baixo */
+    .nav {
+        order: 3;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-top: 15px;
+        max-height: 400px; /* Aumentei para caber os links + o botão */
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.4s ease;
+        overflow: hidden;
+    }
+
+    /* Esconde o botão original no celular e mostra o novo de dentro do menu */
+    #btn-agendar-header {
+        display: none !important;
+    }
+    
+
+    #btn-agendar-mobile {
+        display: inline-block;
+        width: 100%;
+        max-width: 250px; /* Para o botão não ficar gigante de ponta a ponta */
+        text-align: center;
+        margin-top: 10px;
+    }
+
+
+    /* --- 2. ESTADO SCROLLED (QUANDO DESCE A TELA) --- */
+    .header.scrolled {
+        top: 0;
+        width: 100%;
+        border-radius: 0;
+        padding: 10px 20px;
+    }
+
+    /* O Hambúrguer surge suavemente */
+    .header.scrolled .hamburger {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+
+    /* Encolhendo o menu e o botão até sumirem (Animação suave) */
+    .header.scrolled .nav:not(.active) {
+        max-height: 0;
+        margin-top: 0;
+        opacity: 0;
+        visibility: hidden;
+        padding: 0;
+    }
+
+    .header.scrolled #btn-agendar-header {
+        max-height: 0;
+        margin-top: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    /* --- 3. O MENU SUSPENSO QUANDO CLICA NO HAMBÚRGUER (.active) --- */
+    .header.scrolled .nav.active {
+        position: absolute;
+        top: 100%; /* Cola logo abaixo do cabeçalho comprimido */
+        left: 0;
+        width: 100%;
+        background-color: var(--color-white);
+        max-height: 400px;
+        opacity: 1;
+        visibility: visible;
+        padding: 20px 0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        z-index: 999;
+    }
+
+    .about-header h2 { font-size: 2.2rem; }
+
+    .methods{
+        background-position: center;
+        text-align: center;
+    }
+
+    .method-img img{
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        aspect-ratio: 4/3;
+        margin: 0 auto;
+    }
+
+    .method-text {
+        margin-top: 0px;
+        padding-top: 0;
+        top: 200px;
+    }
+
+    .testimonials {
+        background-position: center;
+    }
+
+    .testimonial img {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+
+    .footer-creditos{
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
 }
+
