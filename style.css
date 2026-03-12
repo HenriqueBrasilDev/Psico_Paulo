@@ -91,7 +91,8 @@ ul { list-style: none; }
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(88, 143, 255, 0.3);
+    box-shadow: 0px 4px 15px rgba(88, 144, 255, 0.342);
+    text-shadow: 3px 4px 15px rgba(1, 30, 88, 0.438);
 }
 
 .btn-primary:hover { 
@@ -106,10 +107,10 @@ ul { list-style: none; }
     background: var(--color-white);
     padding: 15px 30px;
     position: fixed;
-    top: 75px;
+    top: 30px;
     left: 50%;
     transform: translateX(-50%); 
-    width: calc(100% - 80px); 
+    width: calc(100% - 80px);
     max-width: 1200px;
     border-radius: 50px; 
     z-index: 1000;
@@ -167,7 +168,7 @@ ul { list-style: none; }
 
 
 .hero {
-    padding: 120px 40px 80px 40px;
+    padding: 65px 40px 80px 40px;
     position: relative;
     overflow: hidden;
 }
@@ -196,7 +197,7 @@ ul { list-style: none; }
     width: 100%;
     scale: 1.2;
     position: relative;
-    top: 45px;
+    top: 25px;
 }
 
 .hero-left h1 {
@@ -869,17 +870,32 @@ ul { list-style: none; }
     }
 
 
+
+
+
+
     .header.scrolled {
         top: 0;
         width: 100%;
         border-radius: 0;
         padding: 10px 20px;
+
+    }
+
+    .header.scrolled .logo-small{
+        order: 2;
+        width: 250px;
+        display: flex;
+        position: absolute;
+        left: calc(50% - 125px);
+        padding: 0;
+        margin: 0;
     }
 
     .header.scrolled .hamburger {
         opacity: 1;
         visibility: visible;
-        transform: translateX(0);
+        padding: 20px 70px;
     }
 
     .header.scrolled .nav:not(.active) {
@@ -890,28 +906,45 @@ ul { list-style: none; }
         padding: 0;
     }
 
-    .header.scrolled #btn-agendar-header {
+    .header.scrolled #btn-agendar-mobile{
         max-height: 0;
         margin-top: 0;
         padding-top: 0;
         padding-bottom: 0;
-        opacity: 0;
         visibility: hidden;
     }
 
+     .header.scrolled #btn-agendar-header{
+        display: block !important;
+        font-size: 0.8em;
+        padding: 15px 20px;
+        margin: 10px 0;
+    }
 
     .header.scrolled .nav.active {
         position: absolute;
         top: 100%;
+        margin: 0;
         left: 0;
         width: 100%;
         background-color: var(--color-white);
         max-height: 400px;
         opacity: 1;
         visibility: visible;
-        padding: 20px 0;
+        padding: 10px 0;
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        z-index: 999;
+        gap: 30px;
+    }
+
+    .info-card{
+        width: 90%;
+        height: 300px;
+        margin: 0 auto;
+        padding: 50px 100px 70px 100px;
+    }
+
+    .profile-text p{
+        margin: 0 100px;
     }
 
     .about-header h2 { font-size: 2.2rem; }
@@ -921,18 +954,27 @@ ul { list-style: none; }
         text-align: center;
     }
 
+    .method-img{
+        width: 100%;
+        min-width: 100%;
+    }
+
     .method-img img{
         width: 100%;
-        max-width: 400px;
+        min-width: 100%;
         height: auto;
         aspect-ratio: 4/3;
-        margin: 0 auto;
     }
 
     .method-text {
         margin-top: 0px;
         padding-top: 0;
         top: 200px;
+        width: 70%;
+        padding-bottom: 10px;
+    }
+
+    .method-text p{
     }
 
     .testimonials {
