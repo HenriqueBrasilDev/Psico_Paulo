@@ -68,6 +68,8 @@ ul { list-style: none; }
     object-fit: cover;
 }
 
+
+
 .placeholder-img {
     background-color: #d1d8e0;
     display: flex;
@@ -130,7 +132,19 @@ ul { list-style: none; }
     align-items: center;
     width: 100%;
 }
-.nav { display: flex; gap: 40px; }
+
+header .logo-small {
+    margin-left: 20px;
+}
+
+.nav { 
+    display: flex;
+    gap: 40px;
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+}
+
 .nav a {
     font-weight: 500;
     font-size: 1rem;
@@ -919,6 +933,7 @@ ul { list-style: none; }
         font-size: 0.8em;
         padding: 15px 20px;
         margin: 10px 0;
+        transition: all 0.3s ease;
     }
 
     .header.scrolled .nav.active {
