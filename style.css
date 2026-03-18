@@ -68,8 +68,6 @@ ul { list-style: none; }
     object-fit: cover;
 }
 
-
-
 .placeholder-img {
     background-color: #d1d8e0;
     display: flex;
@@ -93,8 +91,7 @@ ul { list-style: none; }
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
-    box-shadow: 0px 4px 15px rgba(88, 144, 255, 0.342);
-    text-shadow: 3px 4px 15px rgba(1, 30, 88, 0.438);
+    box-shadow: 0 4px 15px rgba(88, 143, 255, 0.3);
 }
 
 .btn-primary:hover { 
@@ -109,10 +106,10 @@ ul { list-style: none; }
     background: var(--color-white);
     padding: 15px 30px;
     position: fixed;
-    top: 30px;
+    top: 75px;
     left: 50%;
     transform: translateX(-50%); 
-    width: calc(100% - 80px);
+    width: calc(100% - 80px); 
     max-width: 1200px;
     border-radius: 50px; 
     z-index: 1000;
@@ -132,19 +129,7 @@ ul { list-style: none; }
     align-items: center;
     width: 100%;
 }
-
-header .logo-small {
-    margin-left: 20px;
-}
-
-.nav { 
-    display: flex;
-    gap: 40px;
-    position: absolute;
-    right: 50%;
-    transform: translateX(50%);
-}
-
+.nav { display: flex; gap: 40px; }
 .nav a {
     font-weight: 500;
     font-size: 1rem;
@@ -182,7 +167,7 @@ header .logo-small {
 
 
 .hero {
-    padding: 65px 40px 80px 40px;
+    padding: 120px 40px 80px 40px;
     position: relative;
     overflow: hidden;
 }
@@ -211,7 +196,7 @@ header .logo-small {
     width: 100%;
     scale: 1.2;
     position: relative;
-    top: 25px;
+    top: 45px;
 }
 
 .hero-left h1 {
@@ -766,17 +751,11 @@ header .logo-small {
 
 
 
-@media (max-width: 768px) {
-    .certificados-list {
-        column-count: 1;
-        display: flex;
-    }
-}
-
-
-
-
 @media (max-width: 1024px) {
+    .nav{
+        padding: 0 50px;
+    }
+
     .hero-container { flex-direction: column; text-align: center; }
     .hero-left, .hero-center, .hero-right { max-width: 100%; display: flex; flex-direction: column; align-items: center; }
     .services-list li { display: inline-block; margin: 0 10px 10px; }
@@ -786,7 +765,10 @@ header .logo-small {
     .info-grid { grid-template-columns: repeat(2, 1fr); }
     .about-profile { flex-direction: column; text-align: center; }
     
-    .method-row, .method-row.reverse { flex-direction: column; text-align: center; }
+    .method-row, .method-row.reverse {
+        text-align: center;
+    }
+
     .method-img { width: 100%; max-width: 400px; height: auto; aspect-ratio: 4/3; }
     .card-white { width: 100%; }
     .card-white ul { padding-left: 0; }
@@ -798,9 +780,8 @@ header .logo-small {
     
 
     .testimonial-card { 
-        width: auto;
-        min-width: calc(50% - 15px); 
-    } 
+        min-width: calc(50% - 15px);
+    }
 }
 
 
@@ -812,7 +793,10 @@ header .logo-small {
     .hero-left h1 { font-size: 2.5rem; }
     .main-photo { border-radius: 100px; }
     
-    .info-grid { grid-template-columns: 1fr; }
+    .info-grid {
+        grid-template-columns: 1fr;
+    
+    }
     .schedule-box { width: 100%; }
     
     .steps-container { flex-direction: column; }
@@ -828,6 +812,10 @@ header .logo-small {
         max-width: calc(100vw - 60px);
     } 
 
+    .certificados-list {
+        column-count: 1;
+        display: flex;
+    }
     
     .header {
         padding: 15px 20px; 
@@ -869,7 +857,6 @@ header .logo-small {
         visibility: visible;
         transition: all 0.4s ease;
         overflow: hidden;
-        position: relative;
     }
 
     #btn-agendar-header {
@@ -885,32 +872,17 @@ header .logo-small {
     }
 
 
-
-
-
-
     .header.scrolled {
         top: 0;
         width: 100%;
         border-radius: 0;
         padding: 10px 20px;
-
-    }
-
-    .header.scrolled .logo-small{
-        order: 2;
-        width: 250px;
-        display: flex;
-        position: absolute;
-        left: calc(50% - 125px);
-        padding: 0;
-        margin: 0;
     }
 
     .header.scrolled .hamburger {
         opacity: 1;
         visibility: visible;
-        padding: 20px 70px;
+        transform: translateX(0);
     }
 
     .header.scrolled .nav:not(.active) {
@@ -921,45 +893,28 @@ header .logo-small {
         padding: 0;
     }
 
-    .header.scrolled #btn-agendar-mobile{
+    .header.scrolled #btn-agendar-header {
         max-height: 0;
         margin-top: 0;
         padding-top: 0;
         padding-bottom: 0;
+        opacity: 0;
         visibility: hidden;
     }
 
-     .header.scrolled #btn-agendar-header{
-        display: block !important;
-        font-size: 0.8em;
-        padding: 15px 20px;
-        margin: 10px 0;
-        transition: all 0.3s ease;
-    }
 
     .header.scrolled .nav.active {
         position: absolute;
         top: 100%;
-        margin: 0;
+        left: 0;
         width: 100%;
         background-color: var(--color-white);
         max-height: 400px;
         opacity: 1;
         visibility: visible;
-        padding: 10px 0;
+        padding: 20px 0;
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        gap: 30px;
-    }
-
-    .info-card{
-        width: 90%;
-        height: 300px;
-        margin: 0 auto;
-        padding: 50px 100px 70px 100px;
-    }
-
-    .profile-text p{
-        margin: 0 100px;
+        z-index: 999;
     }
 
     .about-header h2 { font-size: 2.2rem; }
@@ -969,27 +924,18 @@ header .logo-small {
         text-align: center;
     }
 
-    .method-img{
-        width: 100%;
-        min-width: 100%;
-    }
-
     .method-img img{
         width: 100%;
-        min-width: 100%;
+        max-width: 400px;
         height: auto;
         aspect-ratio: 4/3;
+        margin: 0 auto;
     }
 
     .method-text {
         margin-top: 0px;
         padding-top: 0;
         top: 200px;
-        width: 70%;
-        padding-bottom: 10px;
-    }
-
-    .method-text p{
     }
 
     .testimonials {
@@ -1000,7 +946,6 @@ header .logo-small {
         width: 100%;
         margin: 0 auto;
     }
-
 
     .footer-creditos{
         flex-direction: column;
