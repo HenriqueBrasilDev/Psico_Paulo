@@ -924,6 +924,10 @@ ul { list-style: none; }
         text-align: center;
     }
 
+    .method-row, .method-row.reverse {
+        flex-direction: column;
+    }
+
     .method-img img{
         width: 100%;
         max-width: 400px;
@@ -933,9 +937,7 @@ ul { list-style: none; }
     }
 
     .method-text {
-        margin-top: 0px;
-        padding-top: 0;
-        top: 200px;
+        padding: 0 50px 20px 50px;
     }
 
     .testimonials {
