@@ -41,7 +41,6 @@ body {
     line-height: 1.6;
     background-color: var(--color-white);
     overflow-x: hidden;
-
 }
 
 a { text-decoration: none; color: inherit; }
@@ -967,6 +966,10 @@ ul { list-style: none; }
         padding: 20px 0;
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         z-index: 999;
+    }
+
+    .hero-container li{
+        padding-left: 0;
     }
 
     .about-header h2 { font-size: 2.2rem; }
