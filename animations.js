@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     gsap.registerPlugin(ScrollTrigger);
 
-    // 1. ANIMAÇÃO
+    // 1. ANIMAÇÃO DE ENTRADA
 
     const tlHero = gsap.timeline();
 
@@ -10,7 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
         .from(".services-list li", { x: -50, opacity: 0, duration: 0.7, stagger: 0.15 }, "-=0.3")
         .from(".quote", { opacity: 0, duration: 1 }, "-=0.2")
         .from(".hero-left p", { opacity: 0, duration: 1, ease: "power2.out" }, "-=0.9")
-        .from(".hero-center .imagem-central", { scale: 0.9, opacity: 0, duration: 1.2, ease: "power2.out" }, "-=1")
+        .from(".hero-center .imagem-central", {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power2.out"
+        }, "-=1")
         .from(".badge", { x: 30, opacity: 0, duration: 0.6, stagger: 0.2, ease: "power2.out" }, "-=0.8")
         .from(".badge-certificados", {opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, "-=0.4");
 
@@ -100,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
         y: 50,
         opacity: 0,
         duration: 0.8,
-        stagger: 0.15, // Anima um card logo após o outro
+        stagger: 0.15,
         ease: "power2.out"
     });
 

@@ -823,7 +823,8 @@ ul { list-style: none; }
 
 @media (max-width: 768px) {
     /* --- ELEMENTOS GERAIS DO SITE NO CELULAR --- */
-    .container { padding: 30px 20px;
+    .container {
+        padding: 30px 20px;
     }
 
     .hero { padding-top: 200px; }
