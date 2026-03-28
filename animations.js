@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .from(".badge-certificados", {opacity: 0, duration: 0.5, ease: "back.out(1.5)" }, "-=0.4");
 
     // 2. ANIMAÇÃO
-
     gsap.from(".info-card", {
         scrollTrigger: {
             trigger: ".info-grid",
@@ -23,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         opacity: 0,
         duration: 0.8,
-        stagger: 0.1,
+        stagger: 0.2,
         ease: "power3.inOut"
     });
 
