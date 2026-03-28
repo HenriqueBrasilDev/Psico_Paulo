@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         opacity: 0,
         duration: 0.8,
         stagger: 0.1,
-        ease: "power4.Inout"
+        ease: "power3.inOut"
     });
 
     // 3. ANIMAÇÃO 
