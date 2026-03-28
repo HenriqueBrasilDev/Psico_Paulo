@@ -212,7 +212,7 @@ ul { list-style: none; }
     width: 100%;
     scale: 1.2;
     position: relative;
-    top: 45px;
+    top: -5px;
 }
 
 .hero-left h1 {
@@ -817,7 +817,8 @@ ul { list-style: none; }
 
 @media (max-width: 768px) {
     /* --- ELEMENTOS GERAIS DO SITE NO CELULAR --- */
-    .container { padding: 30px 20px; }
+    .container { padding: 30px 20px;
+    }
 
     .hero { padding-top: 200px; }
     .hero-left h1 { font-size: 2.5rem; }
@@ -825,8 +826,8 @@ ul { list-style: none; }
     
     .info-grid {
         grid-template-columns: 1fr;
-    
     }
+    
     .schedule-box { width: 100%; }
     
     .steps-container { flex-direction: column; }
@@ -853,6 +854,20 @@ ul { list-style: none; }
         border-radius: 20px; 
         top: 20px;
         transition: all 0.4s ease;
+
+    }
+
+    .header .header-container{
+        justify-content: center;
+    }
+
+    .logo-small {
+        order: 1;
+        padding: 0;
+    }
+
+    .header img{
+        width: 50px;
     }
 
     
@@ -863,7 +878,6 @@ ul { list-style: none; }
         align-items: center;
     }
 
-    .logo-small { order: 1; }
 
     .hamburger {
         order: 2;
@@ -872,8 +886,8 @@ ul { list-style: none; }
         visibility: hidden;
         transform: translateX(10px);
         transition: all 0.4s ease;
+        display: none;
     }
-
     
     .nav {
         order: 3;
@@ -882,7 +896,7 @@ ul { list-style: none; }
         flex-direction: column;
         align-items: center;
         gap: 15px;
-        margin-top: 15px;
+        padding: 15px 15px;
         max-height: 400px;
         visibility: visible;
         transition: all 0.4s ease;
@@ -902,17 +916,21 @@ ul { list-style: none; }
     }
 
 
-    .header.scrolled {
-        top: 0;
+    .header.scrolled{
         width: 100%;
-        border-radius: 0;
+        height: 60px;
         padding: 10px 20px;
+    }
+
+    .scrolled .header-container {
+        justify-content: space-between;
     }
 
     .header.scrolled .hamburger {
         opacity: 1;
         visibility: visible;
         transform: translateX(0);
+        display: inline-flex;
     }
 
     .header.scrolled .nav:not(.active) {
