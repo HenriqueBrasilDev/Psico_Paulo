@@ -75,12 +75,12 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.from(row, {
             scrollTrigger: {
                 trigger: row,
-                start: "top 60%",
+                start: "top 70%",
             },
 
-            x: isReverse ? 80 : -80, 
+            x: isReverse ? 180 : -180, 
             opacity: 0,
-            duration: 1,
+            duration: 3,
             ease: "power2.out"
         });
     });
