@@ -1,110 +1,139 @@
+const header = document.querySelector('.header');
+const hamburgerBtn = document.getElementById('hamburger');
+const navMenuBox = document.getElementById('nav-menu');
+const navLinks = document.querySelectorAll('.nav a');
+
+window.addEventListener('load', () => {
+      window.scrollBy({
+          top: 11, // Ajuste esse número para descer mais ou menos
+          left: 0,
+          behavior: 'smooth' // Use 'auto' se quiser que o pulo seja instantâneo, sem animação
+      });
+  });
 
 window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
+    if (header) {
+        header.classList.toggle('scrolled', window.scrollY > 10);
+    }
+
+    if (window.scrollY > 50 && hamburgerBtn?.classList.contains('active')) {
+        hamburgerBtn.classList.remove('active');
+        navMenuBox?.classList.remove('active');
     }
 });
 
+// Lógica do Menu Hamburger
+if (hamburgerBtn && navMenuBox) {
+    const toggleMenu = () => {
+        hamburgerBtn.classList.toggle('active');
+        navMenuBox.classList.toggle('active');
+    };
+
+    hamburgerBtn.addEventListener('click', toggleMenu);
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburgerBtn.classList.remove('active');
+            navMenuBox.classList.remove('active');
+        });
+    });
+}
+
+// 2. CARROSSEL PRINCIPAL
 const track = document.querySelector('.carousel-track');
-const items = Array.from(document.querySelectorAll('.carousel-item'));
 
-let activeIndex = 3; 
-if(items[activeIndex]) items[activeIndex].classList.add('active');
-
-function updateCarouselPosition(animate = true) {
-    const activeItem = document.querySelector('.carousel-item.active');
-    if (!activeItem) return;
-
-    const bar = track.parentElement;
-    const barCenter = bar.offsetWidth / 2;
-    const itemCenter = activeItem.offsetLeft + (activeItem.offsetWidth / 2);
-    const moveAmount = barCenter - itemCenter;
-
-    track.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
-    track.style.transform = `translateX(${moveAmount}px)`;
-}
-
-window.addEventListener('load', () => updateCarouselPosition(false));
-window.addEventListener('resize', () => updateCarouselPosition(false));
-
-setInterval(() => {
-    const activeItem = document.querySelector('.carousel-item.active');
-    let nextItem = activeItem.nextElementSibling;
+if (track) {
+    const items = Array.from(track.querySelectorAll('.carousel-item'));
+    let activeIndex = 3; 
     
-    if (!nextItem) nextItem = track.children[0];
+    if (items[activeIndex]) items[activeIndex].classList.add('active');
 
-    activeItem.classList.remove('active');
-    nextItem.classList.add('active');
-    updateCarouselPosition(true);
+    function updateCarouselPosition(animate = true) {
+        const activeItem = track.querySelector('.carousel-item.active');
+        if (!activeItem) return;
 
-    setTimeout(() => {
-        const firstItem = track.children[0];    
-        track.appendChild(firstItem);
-        updateCarouselPosition(false); 
-    }, 500); 
+        const bar = track.parentElement;
+        const barCenter = bar.offsetWidth / 2;
+        const itemCenter = activeItem.offsetLeft + (activeItem.offsetWidth / 2);
+        const moveAmount = barCenter - itemCenter;
 
-}, 3000);
-
-
-const testimonialsTrack = document.querySelector('.testimonials-track');
-const prevTestimonialBtn = document.querySelector('.prev-btn');
-const nextTestimonialBtn = document.querySelector('.next-btn');
-let autoScrollInterval;
-
-function scrollNextTestimonial() {
-    if(!testimonialsTrack) return;
-    const card = document.querySelector('.testimonial-card');
-    if(!card) return;
-    
-    const cardWidth = card.offsetWidth + 30;
-    
-    
-    if (testimonialsTrack.scrollLeft + testimonialsTrack.clientWidth >= testimonialsTrack.scrollWidth - 10) {
-        
-        testimonialsTrack.scrollTo({ transition:0, left: 0, behavior: 'smooth' });
-    } else {
-        
-        testimonialsTrack.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        track.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+        track.style.transform = `translateX(${moveAmount}px)`;
     }
+
+    window.addEventListener('load', () => updateCarouselPosition(false));
+    window.addEventListener('resize', () => updateCarouselPosition(false));
+
+    setInterval(() => {
+        const activeItem = track.querySelector('.carousel-item.active');
+        if (!activeItem) return;
+
+        const nextItem = activeItem.nextElementSibling || track.firstElementChild;
+
+        activeItem.classList.remove('active');
+        nextItem.classList.add('active');
+        updateCarouselPosition(true);
+
+        setTimeout(() => {
+            track.appendChild(track.firstElementChild);
+            updateCarouselPosition(false); 
+        }, 500); 
+
+    }, 3000);
 }
 
-function startAutoScroll() {
-    autoScrollInterval = setInterval(scrollNextTestimonial, 4000); // Muda a cada 4 segundos
-}
+// 3. CARROSSEL DE DEPOIMENTOS
+const testimonialsTrack = document.querySelector('.testimonials-track');
 
-function stopAutoScroll() {
-    clearInterval(autoScrollInterval);
-}
+if (testimonialsTrack) {
+    const prevTestimonialBtn = document.querySelector('.prev-btn');
+    const nextTestimonialBtn = document.querySelector('.next-btn');
+    let autoScrollInterval;
 
-if(nextTestimonialBtn && prevTestimonialBtn && testimonialsTrack) {
-    
+    const getCardWidth = () => {
+        const card = testimonialsTrack.querySelector('.testimonial-card');
+        return card ? card.offsetWidth + 30 : 0;
+    };
+
+    function scrollNextTestimonial() {
+        const cardWidth = getCardWidth();
+        if (!cardWidth) return;
+        
+        if (testimonialsTrack.scrollLeft + testimonialsTrack.clientWidth >= testimonialsTrack.scrollWidth - 10) {
+            testimonialsTrack.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            testimonialsTrack.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        }
+    }
+
+    function startAutoScroll() {
+        autoScrollInterval = setInterval(scrollNextTestimonial, 4000);
+    }
+
+    function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+    }
+
     startAutoScroll();
 
-    
     testimonialsTrack.addEventListener('mouseenter', stopAutoScroll);
     testimonialsTrack.addEventListener('mouseleave', startAutoScroll);
 
-    
-    nextTestimonialBtn.addEventListener('click', () => {
-        const cardWidth = document.querySelector('.testimonial-card').offsetWidth + 30;
-        testimonialsTrack.scrollBy({ left: cardWidth, behavior: 'smooth' });
-    });
+    if (nextTestimonialBtn && prevTestimonialBtn) {
+        nextTestimonialBtn.addEventListener('click', () => {
+            testimonialsTrack.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
+        });
 
-    prevTestimonialBtn.addEventListener('click', () => {
-        const cardWidth = document.querySelector('.testimonial-card').offsetWidth + 30;
-        testimonialsTrack.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-    });
-    
-    
-    nextTestimonialBtn.addEventListener('mouseenter', stopAutoScroll);
-    nextTestimonialBtn.addEventListener('mouseleave', startAutoScroll);
-    prevTestimonialBtn.addEventListener('mouseenter', stopAutoScroll);
-    prevTestimonialBtn.addEventListener('mouseleave', startAutoScroll);
+        prevTestimonialBtn.addEventListener('click', () => {
+            testimonialsTrack.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
+        });
+        
+        [nextTestimonialBtn, prevTestimonialBtn].forEach(btn => {
+            btn.addEventListener('mouseenter', stopAutoScroll);
+            btn.addEventListener('mouseleave', startAutoScroll);
+        });
+    }
 }
-
 
 const modalTriggers = {
     'link-privacidade': 'modal-privacidade',
@@ -115,8 +144,7 @@ const modalTriggers = {
     'btn-certificados': 'modal-certificados'
 };
 
-
-for (const [btnId, modalId] of Object.entries(modalTriggers)) {
+Object.entries(modalTriggers).forEach(([btnId, modalId]) => {
     const btn = document.getElementById(btnId);
     const modal = document.getElementById(modalId);
     
@@ -126,54 +154,18 @@ for (const [btnId, modalId] of Object.entries(modalTriggers)) {
             modal.classList.add('show');
         });
     }
-}
-
-
-document.querySelectorAll('.close-modal').forEach(fecharBtn => {
-    fecharBtn.addEventListener('click', function() {
-        this.closest('.modal').classList.remove('show');
-    });
 });
 
+
+document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const modal = this.closest('.modal');
+        if (modal) modal.classList.remove('show');
+    });
+});
 
 window.addEventListener('click', (e) => {
     if (e.target.classList.contains('modal')) {
         e.target.classList.remove('show');
     }
 });
-
-
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-        
-        if (hamburger) hamburger.classList.remove('active');
-        if (navMenu) navMenu.classList.remove('active');
-    }
-});
-
-
-const hamburgerBtn = document.getElementById('hamburger');
-const navMenuBox = document.getElementById('nav-menu');
-const navLinks = document.querySelectorAll('.nav a');
-
-if (hamburgerBtn && navMenuBox) {
-    hamburgerBtn.addEventListener('click', () => {
-        hamburgerBtn.classList.toggle('active');
-        navMenuBox.classList.toggle('active');
-    });
-
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            hamburgerBtn.classList.remove('active');
-            navMenuBox.classList.remove('active');
-        });
-    });
-}

@@ -980,8 +980,8 @@ ul { list-style: none; }
         z-index: 999;
     }
 
-.hero{
-        padding: 150px 20px 80px 20px;
+    .hero{
+        padding: 120px 20px 80px 20px;
     }
 
     .hero-container li{
