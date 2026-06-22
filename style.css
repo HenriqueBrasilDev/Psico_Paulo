@@ -110,7 +110,7 @@ ul { list-style: none; }
     background: var(--color-white);
     padding: 15px 30px;
     position: fixed;
-    top: 75px;
+    top: 30px;
     left: 50%;
     transform: translateX(-50%); 
     width: calc(100% - 80px); 
@@ -187,7 +187,7 @@ ul { list-style: none; }
 
 
 .hero {
-    padding: 120px 40px 80px 40px;
+    padding: 70px 40px 0px 40px;
     position: relative;
     overflow: hidden;
 }
@@ -326,7 +326,7 @@ ul { list-style: none; }
     position: relative;
     width: 100%;
     margin: 0 auto;
-    max-width: 1250px;
+    max-width: 100%;
 }
 .carousel-track {
     display: flex;

@@ -3,14 +3,6 @@ const hamburgerBtn = document.getElementById('hamburger');
 const navMenuBox = document.getElementById('nav-menu');
 const navLinks = document.querySelectorAll('.nav a');
 
-window.addEventListener('load', () => {
-      window.scrollBy({
-          top: 11, // Ajuste esse número para descer mais ou menos
-          left: 0,
-          behavior: 'smooth' // Use 'auto' se quiser que o pulo seja instantâneo, sem animação
-      });
-  });
-
 window.addEventListener('scroll', () => {
     if (header) {
         header.classList.toggle('scrolled', window.scrollY > 10);
@@ -22,7 +14,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Lógica do Menu Hamburger
+// Menu Hamburger
 if (hamburgerBtn && navMenuBox) {
     const toggleMenu = () => {
         hamburgerBtn.classList.toggle('active');
